@@ -3,11 +3,15 @@
 #include <stddef.h>
 #include "node.h"
 
-static Node*_head = NULL;
-static Node*_tail = NULL;
-static Node*_cur_node = NULL;
+static Node* _head = NULL;
+static Node* _tail = NULL;
+static Node* _cur_node = NULL;
 
 bool empty(){
+	_head = (Node *)malloc(sizeof(Node));
+	_tail = (Node *)malloc(sizeof(Node));
+	_cur_node = (Node *)malloc(sizeof(Node));
+	
 	_head = NULL;
 	_tail = NULL;
 	_cur_node = NULL;
@@ -15,15 +19,27 @@ bool empty(){
 
 size_t size();
 
-void print(){
-	
+void print(){ //list
+	_cur_node = _head;
+	printf("LinkedList [ ");
+	while(_cur_node->next != _tail){
+		printf("%s ",_cur_node->data);
+		_cur_node = _cur_node->next;
+	}
+	printf("]\n");
 }
 
 void print_file(FILE*stream);
 
-void clear();
+void clear(){
+	_cur_node = _head;
+	while(_cur_node != _tail){
 
-Node* append_left(size_t n, char new_data[n]){
+
+
+}
+
+Node* append_left(size_t n, char new_data[n]){ //add
 	Node *temp = (Node *)malloc(sizeof(Node));
 	temp->data = new_data;
 
@@ -64,15 +80,17 @@ Node* append(size_t n, char new_data[n]){
 	}
 }
 
-Node* delete_node(Node* cur_node){
+Node* delete_node(Node* cur_node){ //del
 	prev_node = cur_node.prev;
 	prev_node.next = cur_node.next;
 	cur_node.next.preve = prev_node;
 }
 
-Node* delete(char* data);
+Node* delete(char* data){
+	
+}
 
-Node* get_node(size_t index);
+Node* get_node(size_t index); //move
 
 Node* first();
 Node* last();
