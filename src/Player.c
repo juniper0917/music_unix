@@ -19,8 +19,6 @@ void dinsert(Node* prev,char* data)
 
 }
 
-void init1();
-
 
 
 int main() {
