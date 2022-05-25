@@ -32,10 +32,8 @@ size_t size(){
 void print(){
 	_cur_node = _head;
 	printf("Linkedlist [ ");
-	int i = 0;
-	n = size();
 	
-	for(i = 0; i<n; i++){
+	for(int i = 0; i<size(); i++){
 		printf("%s ", _cur_node->data);
 		_cur_node = _cur_node->next;
 	}
