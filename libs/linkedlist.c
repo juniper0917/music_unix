@@ -40,7 +40,10 @@ void print(){
 	printf("]\n");
 }
 
-void print_file(FILE*stream){}
+void print_file(FILE*stream){
+	FILE*stream = fopen("%s.mp3", _cur_node->data);
+	fclose(stream);
+}
 
 void clear(){
 	_cur_node = _head;
