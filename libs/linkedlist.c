@@ -122,7 +122,7 @@ Node* delete(char* data){
 	}
 }
 
-Node* get_node(size_t index);
+Node* get_node(size_t index){}
 
 Node* first(){
 	_cur_node = _head;
