@@ -42,7 +42,7 @@ void print(){
 	printf("]\n");
 }
 
-void print_file(FILE*stream);
+void print_file(FILE*stream){}
 
 void clear(){
 	_cur_node = _head;
