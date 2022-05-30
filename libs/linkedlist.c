@@ -1,142 +1,193 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "linkedlist.h"
+#include "../include/inkedlist.h"
 
 static Node* _head = NULL;
 static Node* _tail = NULL;
 static Node* _cur_node = NULL;
+static int count = 0;
 
 bool empty(){
-	_head = (Node *)malloc(sizeof(Node));
-	_tail = (Node *)malloc(sizeof(Node));
-	_cur_node = (Node *)malloc(sizeof(Node));
-
-	_head = NULL;
-	_tail = NULL;
-	_cur_node = NULL;
+	if(_head == NULL)
+		return true;
+	else
+		return false;
 }
 
 size_t size(){
-	size_t n = 0;
-	_cur_node = _head;
-	
-	while(_cur_node != _tail){
-		n++;
-		_cur_node = _cur_node->next;
-	}
-	n++;
-	return n;
+	return count;
 }
 
 void print(){
-	_cur_node = _head;
+	Node* temp = _head;
 	printf("Linkedlist [ ");
-	int i = 0;
-	n = size();
-	
-	for(i = 0; i<n; i++){
-		printf("%s ", _cur_node->data);
-		_cur_node = _cur_node->next;
+	while(temp != NULL){
+		printf("%s", temp->data);
+		temp = temp ->next;
 	}
 	printf("]\n");
 }
 
-void print_file(FILE*stream){}
+void print_file(FILE*stream){
+	Node* temp = _tail;
+	fprintf(stream, "%d\n", count);
+
+	while(temp != _tail){
+		fprintf(stream, "%s\n", temp->data);
+		temp = temp->prev;
+	}
+}
 
 void clear(){
-	_cur_node = _head;
+	Node* cur_node = first();
 	Node* temp;
-	
-	for(int i=0; i<size(); i++){
-		temp = _cur_node->next;
-		free(_cur_node);
-		_cur_node = temp;
-	}
-	printf("Linkedlist is cleared!");
-	_head = NULL;
-	_tail = NULL;
+	while (cur_node->next != NULL)
+		cur_node = delete_node(temp);
 	_cur_node = NULL;
 }
 
 Node* append_left(size_t n, char new_data[n]){
-	Node* temp = (Node *)malloc(sizeof(Node));
-	temp->data = new_data;
+	Node* temp = malloc(sizeof(Node));
+	temp->data = malloc(sizeof(n));
+	strcpy(temp->data, new_data);
 
 	if(_head == NULL){
-		_head = _tail = temp;
-		_head->prev = temp;
-		_head->next = temp;
+		temp->next = NULL;
+		_tail = temp;
 	}
 	else{
-		temp->prev = _head->prev;
-		temp->next = _head;
-		_head->prev = temp;
-		_tail->next = temp;
-		_head = temp;
+		first()->prev = temp;
+		temp->net = first();
 	}
+	temp->prev = NULL;
+	_head = temp;
+	count++;
+	return temp;
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
-	new_node->next = cur_node->next;
-	new_node->prev = cur_node;
-	cur_node->next->prev = new_node;
-	cur_node->next = new_node;
+	Node* left = cur_node0->prev;
+	Node* right = cur_node->next;
+
+	if(left != NULL)
+		left->next = right;
+	else
+		_head = right;
+
+	if(right != NULL)
+		right->prev = left;
+	else
+		_tail = left;
+
+	if (new_node != NULL){
+		if(new_node->next != NULL)
+			new_node->next->prev = cur_node;
+		cur_node->prev = new_node;
+		cur_node->next = new_node->next;
+		new_node->next = cur_node;
+		if(cur_node->next == NULL)
+			_tail = cur_node;
+	}
+	return cur_node;
 }
 
 Node* append(size_t n, char new_data[n]){
-	Node *temp = (Node *)malloc(sizeof(Node));
-	temp->data = new_data;
+	Node* temp = malloc(sizeof(Node));
+	temp->data = malloc(n + 1);
+	strcpy(temp->data, new_data);
 
 	if(_tail = NULL){
-		_head = _tail = temp;
-		_tail->prev = temp;
-		_tail->next = temp;
+		temp->prev = NULL;
+		_head = temp;
 	}
 	else{
-		temp->prev = _tail;
-		temp->next = _tail->next;
-		_tail->next = temp;
-		_head->prev = temp;
-		_tail = temp;
+		last()->next = temp;
+		temp->prev = last();
 	}
+	temp->next = NULL;
+	_tail = temp;
+	count++;
+	return temp;
 }
 
 Node* delete_node(Node* cur_node){
-	Node* temp;
-	temp = cur_node->prev;
-	temp->next = cur_node->next;
-	cur_node->next->prev = temp;
-
+	Node* left = cur_node->prev;
+	Node* right = cur_node->next;
+	free(cur_node->data);
 	free(cur_node);
+
+	if(left == NULL && right == NULL){
+		_head = NULL;
+		_tail = NULL;
+	}
+	else if (left != NULL && right != NULL){
+		left->next = right;
+		right->prv = left;
+	}
+	else{
+		if (left == NULL){
+			_head = right;
+			right->prev = NULL;
+		}
+		else{
+			_tail = left;
+			left->next = NULL;
+		}
+	}
+	count--;
+	return right;
 }
 
 Node* delete(char* data){
-	_cur_node = _head;
+	printf("in delete()\n");
+	Node* temp = first();
+	while(temp != NULL){
+		if(!strcmp(temp->data, data)){
+			temp = delete_node(temp);
+			return temp;
+		}
+		temp = temp->next;
+	}
+	return NULL;
+}
 
-	for(int i=0; i<size(); i++;){
-		if(_cur_node->data == data)
-			delete_node(_cur_node);
-		else
-			_cur_node = _cur_node->next;
+Node* get_node(size_t index){
+	int i= 0;
+	Node* temp = first();
+	if(size() <= index)
+		return NULL;
+	else{
+		while(temp != NULL){
+			if (i == index){
+				_cur_node = temp;
+				return temp;
+			}
+			temp = temp->next;
+			++i;
+		}
+		return NULL;
 	}
 }
 
-Node* get_node(size_t index){}
-
 Node* first(){
 	_cur_node = _head;
+	return _cur_node;
 }
 
 Node* last(){
 	_cur_node = _tail;
+	return _cur_node;
 }
 
 Node* next(){
-	_cur_node = _cur_node->next;
+	if(_cur_node->next != NULL)
+		_cur_node = _cur_node->next;
+	return _cur_node;
 }
 
 Node* prev(){
-	_cur_node = _cur_node->prev;
+	if(_cur_node->prev != NULL)
+		_cur_node = _cur_node->prev;
+	return _cur_node;
 }
-
