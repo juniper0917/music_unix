@@ -2,23 +2,13 @@
 #include "textfilewriter.h"
 #include "node.h"
 
-Node* current;
+static Node* _head = NULL;
 
-void init(Node* head)
-{
-    head -> next = head;
-    head -> prev = head;
-}
+static Node* _tail = NULL;
 
-void dinsert(Node* prev,char* data)
-{
-    Node* new_node = (Node*)malloc(sizeof(Node));
-    new_node -> data =(char*)malloc(sizeof(char) * (strlen(data)+1));
-    strcpy(new_node -> data , data);
-    printf("data [%s]의 길이 : %d\n", new_node -> data,strlen(new_node->data));
+static Node* _cur_node = NULL;
 
-}
-
+static int count = 0;
 
 
 int main() {
@@ -29,7 +19,6 @@ int main() {
     int songNumber;
 
     Node* head = (Node*)malloc(sizeof(Node));
-    init(head);
 
     do{
         scanf("%d",songNumber);
@@ -37,15 +26,23 @@ int main() {
 
         switch(cmd){
             case 'add':
+
             case 'del':
+                delete_node(_cur_node);
             case 'list':
             case 'next':
+                next();
             case 'prev':
+                prev();
             case 'move':
             case 'play':
+                printf("%c is now playing!", _cur_node);
             case 'clea':
+                clear();
             case 'load':
+                read_file(fileno);
             case 'save':
+                write_file(fileno);
 
 
         }

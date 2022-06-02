@@ -1,26 +1,28 @@
-void create_music_titles(FILE* stream){
+#include <string.h>
+#include "../include/textfilewriter.h"
+#include "../include/linkedlist.h"
 
-}
-void read_file(char* file_name){
-	FILE *stream;
-	stream = fopen(file_name, "r");
-	int music_count = (int)fgets();
-	char* music_titles[] = new char*[music_count];
-        for (int i=0; i < music_count; i++){
-                music_titles[i] = fgets();
-        }
-	int instr_cnt = (int)fgets();
-	char* instr_set[] = new char*[instr_cnt];
-        for (int i=0; i < instr_cnt; i++){
-                instr_set[i] = fgets();
-        }
-	create_music_titles(steam);
-}
-void write_file(char* file_name){
-	FILE *stream;
-	stream = fopen(file_name, "w");
-	fputs( , stream);
-	fclose(stream);
+#define MAX_TITLE_SIZE 50
+
+void create_music_titles(FILE* stream) {
+    int count = 0;
+    char buffer[MAX_TITLE_SIZE];
+    fscanf(stream, "%d", &count);
+    clear();
+    while (count-->0) {
+        fscanf(stream, "%s", buffer);
+        append_left(strlen(buffer), buffer);
+    }
 }
 
+void read_file(char* file_name) {
+    FILE* f = fopen(file_name, "r");
+    create_music_titles(f);
+    fclose(f);
+}
 
+void write_file(char* file_name) {
+    FILE* f = fopen(file_name, "w");
+    print_file(f);
+    fclose(f);
+}
