@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/linkedlist.h"
+<<<<<<< HEAD
 #include "../include/node.h"
 #include "../include/textfilewriter.h"
+=======
+>>>>>>> 31e5bd8a31f7fb21527723272a31f77cdeec6df2
 
 static Node* _head = NULL;
 static Node* _tail = NULL;
@@ -21,11 +24,11 @@ size_t size(){
 	return count;
 }
 
-void print(){
+void print(){                                         //list
 	Node* temp = _head;
 	printf("Linkedlist [ ");
 	while(temp != NULL){
-		printf("%s", temp->data);
+		printf("%s ", temp->data);
 		temp = temp ->next;
 	}
 	printf("]\n");
@@ -41,11 +44,11 @@ void print_file(FILE*stream){
 	}
 }
 
-void clear(){
+void clear(){                                         //clear, quit
 	Node* cur_node = first();
-	Node* temp;
-	while (cur_node->next != NULL)
-		cur_node = delete_node(temp);
+	while (cur_node->next != NULL){
+		cur_node = delete_node(cur_node);
+	printf("LinkedList is cleared!"\n);
 	_cur_node = NULL;
 }
 
@@ -141,8 +144,7 @@ Node* delete_node(Node* cur_node){
 	return right;
 }
 
-Node* delete(char* data){
-	printf("in delete()\n");
+Node* delete(char* data){                             //del
 	Node* temp = first();
 	while(temp != NULL){
 		if(!strcmp(temp->data, data)){
@@ -182,13 +184,13 @@ Node* last(){
 	return _cur_node;
 }
 
-Node* next(){
+Node* next(){                                         //next
 	if(_cur_node->next != NULL)
 		_cur_node = _cur_node->next;
 	return _cur_node;
 }
 
-Node* prev(){
+Node* prev(){                                         //prev
 	if(_cur_node->prev != NULL)
 		_cur_node = _cur_node->prev;
 	return _cur_node;
