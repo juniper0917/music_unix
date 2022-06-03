@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/inkedlist.h"
+#include "../include/linkedlist.h"
 
 static Node* _head = NULL;
 static Node* _tail = NULL;
@@ -19,11 +19,11 @@ size_t size(){
 	return count;
 }
 
-void print(){
+void print(){                                         //list
 	Node* temp = _head;
 	printf("Linkedlist [ ");
 	while(temp != NULL){
-		printf("%s", temp->data);
+		printf("%s ", temp->data);
 		temp = temp ->next;
 	}
 	printf("]\n");
@@ -39,11 +39,11 @@ void print_file(FILE*stream){
 	}
 }
 
-void clear(){
+void clear(){                                         //clear, quit
 	Node* cur_node = first();
-	Node* temp;
-	while (cur_node->next != NULL)
-		cur_node = delete_node(temp);
+	while (cur_node->next != NULL){
+		cur_node = delete_node(cur_node);
+	printf("LinkedList is cleared!"\n);
 	_cur_node = NULL;
 }
 
@@ -67,7 +67,7 @@ Node* append_left(size_t n, char new_data[n]){
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
-	Node* left = cur_node0->prev;
+	Node* left = cur_node->prev;
 	Node* right = cur_node->next;
 
 	if(left != NULL)
@@ -139,8 +139,7 @@ Node* delete_node(Node* cur_node){
 	return right;
 }
 
-Node* delete(char* data){
-	printf("in delete()\n");
+Node* delete(char* data){                             //del
 	Node* temp = first();
 	while(temp != NULL){
 		if(!strcmp(temp->data, data)){
@@ -180,13 +179,13 @@ Node* last(){
 	return _cur_node;
 }
 
-Node* next(){
+Node* next(){                                         //next
 	if(_cur_node->next != NULL)
 		_cur_node = _cur_node->next;
 	return _cur_node;
 }
 
-Node* prev(){
+Node* prev(){                                         //prev
 	if(_cur_node->prev != NULL)
 		_cur_node = _cur_node->prev;
 	return _cur_node;
