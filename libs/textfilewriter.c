@@ -1,6 +1,8 @@
 #include <string.h>
 #include "../include/textfilewriter.h"
-#include "../include/linkdelist.h"
+#include "../include/linkedlist.h"
+
+#define MAX_TITLES_SIZE 50;
 
 void create_music_titles(FILE* stream){
 	int count=0;

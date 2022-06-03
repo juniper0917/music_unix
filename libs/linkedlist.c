@@ -2,11 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/linkedlist.h"
-<<<<<<< HEAD
 #include "../include/node.h"
 #include "../include/textfilewriter.h"
-=======
->>>>>>> 31e5bd8a31f7fb21527723272a31f77cdeec6df2
 
 static Node* _head = NULL;
 static Node* _tail = NULL;
@@ -48,7 +45,7 @@ void clear(){                                         //clear, quit
 	Node* cur_node = first();
 	while (cur_node->next != NULL){
 		cur_node = delete_node(cur_node);
-	printf("LinkedList is cleared!"\n);
+	printf("LinkedList is cleared!\n");
 	_cur_node = NULL;
 }
 
