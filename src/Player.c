@@ -1,54 +1,62 @@
+#include <stdlib.h>
+#include <string.h>
+
 #include "linkedlist.h"
 #include "textfilewriter.h"
-#include "node.h"
 
-Node* current;
 
-void init(Node* head)
-{
-    head -> next = head;
-    head -> prev = head;
+void read_command(char** cmds);
+
+int main(){
+    
+
+    
 }
 
-void dinsert(Node* prev,char* data)
-{
-    Node* new_node = (Node*)malloc(sizeof(Node));
-    new_node -> data =(char*)malloc(sizeof(char) * (strlen(data)+1));
-    strcpy(new_node -> data , data);
-    printf("data [%s]의 길이 : %d\n", new_node -> data,strlen(new_node->data));
-
-}
-
-
-
-int main() {
-    char h;
-    char cmd;
-    char title[100];
-    char songList[100];
-    int songNumber;
+void read_command(char** cmds) {
 
     Node* head = (Node*)malloc(sizeof(Node));
-    init(head);
+    int songNumber;
+    Node* current = head -> data;
+    char title[100];
+    int index;
 
     do{
         scanf("%d",songNumber);
-        cmd = getchar();
+        cmds = getchar();
 
-        switch(cmd){
+        switch(cmds){
             case 'add':
+                scanf("%d", &songNumber);
+                scanf("%c",&title);
+                append(n,new_data);
+                append_left(n,new_data);
+                create_music_titles(stream);
             case 'del':
+                delete_node(current);
+                delete(current);
             case 'list':
+                print();
             case 'next':
+                next();
             case 'prev':
+                prev();
             case 'move':
+                scanf("%d",index);
+                char moveTo = get_node(index);
+                append_left(moveTo);
             case 'play':
+                char temp = get_node(current);
+                printf("%c is now Playing!",temp);
             case 'clea':
+                clear();
             case 'load':
+                read_file();
             case 'save':
-
+                write_file();
 
         }
     }
-    while(cmd != 'quit');
+    while(cmds != 'quit');
+    
 }
