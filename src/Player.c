@@ -8,8 +8,9 @@
 void read_command(char** cmds);
 
 int main(){
-    
-
+char ** cmds;
+scanf("%c",cmds);
+read_command(cmds);
     
 }
 
