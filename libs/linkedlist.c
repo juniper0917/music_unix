@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/inkedlist.h"
+#include "../include/linkedlist.h"
+#include "../include/node.h"
+#include "../include/textfilewriter.h"
 
 static Node* _head = NULL;
 static Node* _tail = NULL;
@@ -58,7 +60,7 @@ Node* append_left(size_t n, char new_data[n]){
 	}
 	else{
 		first()->prev = temp;
-		temp->net = first();
+		temp->next = first();
 	}
 	temp->prev = NULL;
 	_head = temp;
@@ -67,7 +69,7 @@ Node* append_left(size_t n, char new_data[n]){
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
-	Node* left = cur_node0->prev;
+	Node* left = cur_node->prev;
 	Node* right = cur_node->next;
 
 	if(left != NULL)
@@ -123,7 +125,7 @@ Node* delete_node(Node* cur_node){
 	}
 	else if (left != NULL && right != NULL){
 		left->next = right;
-		right->prv = left;
+		right->prev = left;
 	}
 	else{
 		if (left == NULL){
